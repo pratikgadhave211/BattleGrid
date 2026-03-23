@@ -39,16 +39,16 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.div
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-1.5 sm:gap-2 cursor-pointer min-w-0"
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('hero')}
           >
-            <span className="text-3xl">🚀</span>
-            <span className="text-lg sm:text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-500 bg-clip-text text-transparent">
+            <span className="text-2xl sm:text-3xl">🚀</span>
+            <span className="text-sm sm:text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-500 bg-clip-text text-transparent truncate max-w-[220px] sm:max-w-none">
               Technovation 4.0 — Mirai
             </span>
           </motion.div>

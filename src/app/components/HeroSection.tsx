@@ -39,19 +39,20 @@ export default function HeroSection() {
       ease: 'none'
     });
 
-    const glitchTimeline = gsap.timeline({ repeat: -1, repeatDelay: 1.4 });
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    const glitchTimeline = gsap.timeline({ repeat: -1, repeatDelay: isMobile ? 1.9 : 1.4 });
     glitchTimeline
       .to([redGhost, cyanGhost], {
-        opacity: 0.9,
+        opacity: isMobile ? 0.65 : 0.9,
         duration: 0.03,
         ease: 'none'
       })
-      .to(redGhost, { x: -10, y: 2, duration: 0.03, ease: 'none' }, '<')
-      .to(cyanGhost, { x: 10, y: -2, duration: 0.03, ease: 'none' }, '<')
+      .to(redGhost, { x: isMobile ? -5 : -10, y: 2, duration: 0.03, ease: 'none' }, '<')
+      .to(cyanGhost, { x: isMobile ? 5 : 10, y: -2, duration: 0.03, ease: 'none' }, '<')
       .to(title, {
-        x: 2,
-        skewX: 7,
-        scale: 1.015,
+        x: isMobile ? 1 : 2,
+        skewX: isMobile ? 4 : 7,
+        scale: isMobile ? 1.008 : 1.015,
         filter: 'drop-shadow(0 0 34px rgba(56, 189, 248, 0.95))',
         duration: 0.03,
         ease: 'none'
@@ -59,13 +60,13 @@ export default function HeroSection() {
       .to(title, { clipPath: 'inset(10% 0 48% 0)', duration: 0.03, ease: 'none' })
       .to(title, { clipPath: 'inset(56% 0 12% 0)', duration: 0.03, ease: 'none' })
       .to(title, {
-        x: -2,
-        skewX: -7,
+        x: isMobile ? -1 : -2,
+        skewX: isMobile ? -4 : -7,
         duration: 0.03,
         ease: 'none'
       })
-      .to(redGhost, { x: -4, y: -1, duration: 0.03, ease: 'none' }, '<')
-      .to(cyanGhost, { x: 4, y: 1, duration: 0.03, ease: 'none' }, '<')
+      .to(redGhost, { x: isMobile ? -2 : -4, y: -1, duration: 0.03, ease: 'none' }, '<')
+      .to(cyanGhost, { x: isMobile ? 2 : 4, y: 1, duration: 0.03, ease: 'none' }, '<')
       .to(title, {
         x: 0,
         skewX: 0,
@@ -143,16 +144,16 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto px-4 pt-24 sm:pt-16 text-center">
         <motion.h1
-          className="relative text-6xl md:text-8xl lg:text-9xl font-black mb-4"
+          className="relative text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black mb-4"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <span
             ref={titleRef}
-            className="relative inline-block px-2 uppercase tracking-[0.1em] bg-[linear-gradient(110deg,#a5f3fc_0%,#22d3ee_28%,#60a5fa_52%,#a78bfa_75%,#e9d5ff_100%)] bg-[length:220%_100%] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(56,189,248,0.38)] will-change-transform"
+            className="relative inline-block px-1 sm:px-2 uppercase tracking-[0.06em] sm:tracking-[0.1em] bg-[linear-gradient(110deg,#a5f3fc_0%,#22d3ee_28%,#60a5fa_52%,#a78bfa_75%,#e9d5ff_100%)] bg-[length:220%_100%] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(56,189,248,0.38)] will-change-transform"
           >
             BATTLEGRID
           </span>
@@ -171,7 +172,7 @@ export default function HeroSection() {
         </motion.h1>
 
         <motion.div
-          className="text-xl md:text-3xl text-gray-300 mb-3"
+          className="text-base sm:text-xl md:text-3xl text-gray-300 mb-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -180,7 +181,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.p
-          className="text-2xl md:text-4xl text-sky-200 mb-12 font-semibold"
+          className="text-lg sm:text-2xl md:text-4xl text-sky-200 mb-10 sm:mb-12 font-semibold"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -190,7 +191,7 @@ export default function HeroSection() {
 
         {/* Stats */}
         <motion.div
-          className="flex flex-wrap justify-center gap-8 mb-12"
+          className="grid grid-cols-1 sm:flex sm:flex-wrap justify-center gap-5 sm:gap-8 mb-10 sm:mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -199,12 +200,12 @@ export default function HeroSection() {
             <div className="text-4xl md:text-5xl font-black text-cyan-300 mb-2">₹12K</div>
             <div className="text-sm text-gray-400">Prize Pool</div>
           </div>
-          <div className="w-px bg-cyan-500/35" />
+          <div className="hidden sm:block w-px bg-cyan-500/35" />
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-black text-sky-400 mb-2">5</div>
             <div className="text-sm text-gray-400">Tournaments</div>
           </div>
-          <div className="w-px bg-cyan-500/35" />
+          <div className="hidden sm:block w-px bg-cyan-500/35" />
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-black text-violet-400 mb-2">3</div>
             <div className="text-sm text-gray-400">Days Event</div>
@@ -213,14 +214,14 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-8 sm:gap-10 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-center items-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
           <motion.button
             onClick={scrollToGames}
-            className="group relative px-8 py-4 bg-gradient-to-r from-sky-500 to-violet-600 rounded-lg font-bold text-lg overflow-hidden shadow-[0_0_22px_rgba(99,102,241,0.35)]"
+            className="group relative w-full max-w-xs sm:w-auto px-8 py-4 bg-gradient-to-r from-sky-500 to-violet-600 rounded-lg font-bold text-lg overflow-hidden shadow-[0_0_22px_rgba(99,102,241,0.35)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -238,7 +239,7 @@ export default function HeroSection() {
 
           <motion.button
             onClick={scrollToRules}
-            className="px-8 py-4 border-2 border-cyan-500 rounded-lg font-bold text-lg hover:bg-cyan-500/10 transition-colors flex items-center gap-2"
+            className="w-full max-w-xs sm:w-auto px-8 py-4 border-2 border-cyan-500 rounded-lg font-bold text-lg hover:bg-cyan-500/10 transition-colors flex items-center justify-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

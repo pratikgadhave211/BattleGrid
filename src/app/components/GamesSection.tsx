@@ -42,7 +42,7 @@ const games = [
 
 export default function GamesSection() {
   return (
-    <section id="games" className="relative py-24 z-10 overflow-hidden">
+    <section id="games" className="relative py-16 sm:py-24 z-10 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.1),transparent_45%),radial-gradient(circle_at_85%_0%,rgba(139,92,246,0.11),transparent_50%)]" />
         <motion.div
@@ -97,22 +97,22 @@ export default function GamesSection() {
       <div className="container mx-auto px-4 relative">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tight font-display uppercase">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black mb-3 sm:mb-4 tracking-tight font-display uppercase">
             <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(56,189,248,0.35)]">
               Choose Your Battle
             </span>
           </h2>
-          <p className="text-xl text-sky-100/80 font-gaming tracking-wide">Live queues are up. Pick your arena and climb the bracket.</p>
+          <p className="text-base sm:text-xl text-sky-100/80 font-gaming tracking-wide px-2">Live queues are up. Pick your arena and climb the bracket.</p>
         </motion.div>
 
         {/* Games Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {games.map((game, index) => (
             <motion.div
               key={game.id}
@@ -126,7 +126,7 @@ export default function GamesSection() {
               {/* Card */}
               <div className="relative h-full bg-gradient-to-br from-neutral-950 via-black to-neutral-900 border border-cyan-500/20 rounded-[26px] overflow-hidden shadow-[0_0_22px_rgba(56,189,248,0.12)]">
                 {/* Game Image */}
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-52 sm:h-56 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black z-10" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-violet-600/14 via-sky-500/6 to-transparent z-10" />
                   <ImageWithFallback
@@ -134,13 +134,13 @@ export default function GamesSection() {
                     alt={game.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute top-4 left-4 z-20 inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-cyan-300/25 bg-black/45 text-xs font-bold tracking-wider text-cyan-200 uppercase">
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full border border-cyan-300/25 bg-black/45 text-[11px] sm:text-xs font-bold tracking-wider text-cyan-200 uppercase">
                     <Flame size={14} className="text-cyan-300" />
                     Live Queue
                   </div>
                   {/* Floating Icon */}
                   <motion.div
-                    className="absolute top-4 right-4 text-5xl z-20 p-2 rounded-xl bg-black/35 border border-cyan-300/15 backdrop-blur-sm"
+                    className="absolute top-3 right-3 sm:top-4 sm:right-4 text-4xl sm:text-5xl z-20 p-2 rounded-xl bg-black/35 border border-cyan-300/15 backdrop-blur-sm"
                     animate={{
                       y: [0, -10, 0],
                       rotate: [0, 5, -5, 0]
@@ -176,7 +176,7 @@ export default function GamesSection() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 font-gaming">
+                <div className="p-5 sm:p-6 font-gaming">
                   <h3 className={`text-3xl font-black mb-2 bg-gradient-to-r ${game.gradient} bg-clip-text text-transparent tracking-tight font-display uppercase`}>
                     {game.name}
                   </h3>
