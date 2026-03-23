@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&display=swap');
+
+.font-display {
+	font-family: 'Orbitron', 'Segoe UI', sans-serif;
+}
+
+.font-gaming {
+	font-family: 'Exo 2', 'Trebuchet MS', sans-serif;
+}
+
+/* Global font override: apply the selected display font across the app */
+body,
+button,
+input,
+textarea,
+select,
+label {
+	font-family: 'Orbitron', 'Segoe UI', sans-serif;
+}
+
