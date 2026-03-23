@@ -2,6 +2,8 @@
 import { Users, Trophy, IndianRupee, Flame, Crosshair, Shield, Swords, Gamepad2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
+const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+
 const games = [
   {
     id: 'bgmi',
@@ -41,52 +43,56 @@ const games = [
 ];
 
 export default function GamesSection() {
+  const openRegister = () => {
+    window.open(REGISTER_URL, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section id="games" className="relative py-16 sm:py-24 z-10 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.1),transparent_45%),radial-gradient(circle_at_85%_0%,rgba(139,92,246,0.11),transparent_50%)]" />
         <motion.div
-          className="absolute -top-20 left-1/4 w-72 h-72 rounded-full bg-cyan-500/12 blur-3xl"
+          className="absolute -top-20 left-1/4 w-56 sm:w-72 h-56 sm:h-72 rounded-full bg-cyan-500/12 blur-2xl sm:blur-3xl"
           animate={{ opacity: [0.14, 0.3, 0.14], scale: [1, 1.1, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute -bottom-16 right-1/4 w-80 h-80 rounded-full bg-violet-500/12 blur-3xl"
+          className="absolute -bottom-16 right-1/4 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-violet-500/12 blur-2xl sm:blur-3xl"
           animate={{ opacity: [0.18, 0.34, 0.18], scale: [1.1, 1, 1.1] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         {/* Floating background gaming icons */}
         <motion.div
-          className="absolute top-24 left-[6%] text-cyan-200/35 drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]"
+          className="hidden sm:block absolute top-24 left-[6%] text-cyan-200/35 drop-shadow-[0_0_10px_rgba(34,211,238,0.35)]"
           animate={{ y: [0, -14, 0], rotate: [0, 8, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Gamepad2 size={34} className="md:w-11 md:h-11" />
         </motion.div>
         <motion.div
-          className="absolute top-40 right-[8%] text-sky-200/32 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]"
+          className="hidden sm:block absolute top-40 right-[8%] text-sky-200/32 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]"
           animate={{ y: [0, 12, 0], rotate: [0, -7, 0] }}
           transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Crosshair size={30} className="md:w-10 md:h-10" />
         </motion.div>
         <motion.div
-          className="absolute bottom-28 left-[10%] text-cyan-100/28 drop-shadow-[0_0_10px_rgba(34,211,238,0.28)]"
+          className="hidden sm:block absolute bottom-28 left-[10%] text-cyan-100/28 drop-shadow-[0_0_10px_rgba(34,211,238,0.28)]"
           animate={{ y: [0, -10, 0], rotate: [0, 10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Swords size={28} className="md:w-9 md:h-9" />
         </motion.div>
         <motion.div
-          className="absolute bottom-20 right-[12%] text-violet-100/28 drop-shadow-[0_0_10px_rgba(167,139,250,0.28)]"
+          className="hidden sm:block absolute bottom-20 right-[12%] text-violet-100/28 drop-shadow-[0_0_10px_rgba(167,139,250,0.28)]"
           animate={{ y: [0, 11, 0], rotate: [0, -9, 0] }}
           transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Shield size={30} className="md:w-10 md:h-10" />
         </motion.div>
         <motion.div
-          className="absolute top-[46%] left-1/2 -translate-x-1/2 text-sky-100/24 drop-shadow-[0_0_12px_rgba(125,211,252,0.3)]"
+          className="hidden sm:block absolute top-[46%] left-1/2 -translate-x-1/2 text-sky-100/24 drop-shadow-[0_0_12px_rgba(125,211,252,0.3)]"
           animate={{ y: [0, -16, 0], scale: [1, 1.08, 1] }}
           transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
         >
@@ -206,6 +212,7 @@ export default function GamesSection() {
 
                   {/* Register Button */}
                   <motion.button
+                    onClick={openRegister}
                     className="w-full py-3 px-6 bg-gradient-to-r from-cyan-500 via-sky-500 to-violet-600 rounded-[14px] font-bold text-white relative overflow-hidden group/btn shadow-[0_0_20px_rgba(99,102,241,0.35)] font-display uppercase tracking-wide"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}

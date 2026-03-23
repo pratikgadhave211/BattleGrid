@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { gsap } from 'gsap';
 import { Swords, Trophy } from 'lucide-react';
 
+const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+
 export default function HeroSection() {
   const titleRef = useRef<HTMLSpanElement>(null);
   const glitchRedRef = useRef<HTMLSpanElement>(null);
@@ -40,49 +42,59 @@ export default function HeroSection() {
     });
 
     const isMobile = window.matchMedia('(max-width: 640px)').matches;
-    const glitchTimeline = gsap.timeline({ repeat: -1, repeatDelay: isMobile ? 1.9 : 1.4 });
-    glitchTimeline
-      .to([redGhost, cyanGhost], {
-        opacity: isMobile ? 0.65 : 0.9,
-        duration: 0.03,
-        ease: 'none'
-      })
-      .to(redGhost, { x: isMobile ? -5 : -10, y: 2, duration: 0.03, ease: 'none' }, '<')
-      .to(cyanGhost, { x: isMobile ? 5 : 10, y: -2, duration: 0.03, ease: 'none' }, '<')
-      .to(title, {
-        x: isMobile ? 1 : 2,
-        skewX: isMobile ? 4 : 7,
-        scale: isMobile ? 1.008 : 1.015,
-        filter: 'drop-shadow(0 0 34px rgba(56, 189, 248, 0.95))',
-        duration: 0.03,
-        ease: 'none'
-      }, '<')
-      .to(title, { clipPath: 'inset(10% 0 48% 0)', duration: 0.03, ease: 'none' })
-      .to(title, { clipPath: 'inset(56% 0 12% 0)', duration: 0.03, ease: 'none' })
-      .to(title, {
-        x: isMobile ? -1 : -2,
-        skewX: isMobile ? -4 : -7,
-        duration: 0.03,
-        ease: 'none'
-      })
-      .to(redGhost, { x: isMobile ? -2 : -4, y: -1, duration: 0.03, ease: 'none' }, '<')
-      .to(cyanGhost, { x: isMobile ? 2 : 4, y: 1, duration: 0.03, ease: 'none' }, '<')
-      .to(title, {
-        x: 0,
-        skewX: 0,
-        scale: 1,
-        clipPath: 'inset(0% 0 0% 0)',
-        filter: 'drop-shadow(0 0 18px rgba(34, 211, 238, 0.5))',
-        duration: 0.06,
-        ease: 'none'
-      })
-      .to([redGhost, cyanGhost], {
-        opacity: 0,
-        x: 0,
-        y: 0,
-        duration: 0.08,
-        ease: 'none'
-      }, '<');
+    const glitchTimeline = gsap.timeline({ repeat: -1, repeatDelay: isMobile ? 2.2 : 1.4 });
+    if (isMobile) {
+      glitchTimeline
+        .to([redGhost, cyanGhost], { opacity: 0.45, duration: 0.04, ease: 'none' })
+        .to(redGhost, { x: -3, duration: 0.04, ease: 'none' }, '<')
+        .to(cyanGhost, { x: 3, duration: 0.04, ease: 'none' }, '<')
+        .to(title, { x: 1, duration: 0.04, ease: 'none' }, '<')
+        .to(title, { x: 0, duration: 0.05, ease: 'none' })
+        .to([redGhost, cyanGhost], { opacity: 0, x: 0, y: 0, duration: 0.07, ease: 'none' }, '<');
+    } else {
+      glitchTimeline
+        .to([redGhost, cyanGhost], {
+          opacity: 0.9,
+          duration: 0.03,
+          ease: 'none'
+        })
+        .to(redGhost, { x: -10, y: 2, duration: 0.03, ease: 'none' }, '<')
+        .to(cyanGhost, { x: 10, y: -2, duration: 0.03, ease: 'none' }, '<')
+        .to(title, {
+          x: 2,
+          skewX: 7,
+          scale: 1.015,
+          filter: 'drop-shadow(0 0 34px rgba(56, 189, 248, 0.95))',
+          duration: 0.03,
+          ease: 'none'
+        }, '<')
+        .to(title, { clipPath: 'inset(10% 0 48% 0)', duration: 0.03, ease: 'none' })
+        .to(title, { clipPath: 'inset(56% 0 12% 0)', duration: 0.03, ease: 'none' })
+        .to(title, {
+          x: -2,
+          skewX: -7,
+          duration: 0.03,
+          ease: 'none'
+        })
+        .to(redGhost, { x: -4, y: -1, duration: 0.03, ease: 'none' }, '<')
+        .to(cyanGhost, { x: 4, y: 1, duration: 0.03, ease: 'none' }, '<')
+        .to(title, {
+          x: 0,
+          skewX: 0,
+          scale: 1,
+          clipPath: 'inset(0% 0 0% 0)',
+          filter: 'drop-shadow(0 0 18px rgba(34, 211, 238, 0.5))',
+          duration: 0.06,
+          ease: 'none'
+        })
+        .to([redGhost, cyanGhost], {
+          opacity: 0,
+          x: 0,
+          y: 0,
+          duration: 0.08,
+          ease: 'none'
+        }, '<');
+    }
 
     return () => {
       introTween.kill();
@@ -103,6 +115,10 @@ export default function HeroSection() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const openRegister = () => {
+    window.open(REGISTER_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -220,7 +236,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 1 }}
         >
           <motion.button
-            onClick={scrollToGames}
+            onClick={openRegister}
             className="group relative w-full max-w-xs sm:w-auto px-8 py-4 bg-gradient-to-r from-sky-500 to-violet-600 rounded-lg font-bold text-lg overflow-hidden shadow-[0_0_22px_rgba(99,102,241,0.35)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

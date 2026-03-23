@@ -40,7 +40,7 @@ export default function App() {
 
       {/* Global Background Video */}
       <video
-        className="fixed inset-0 w-full h-full object-cover opacity-35 brightness-125 pointer-events-none z-0"
+        className="fixed inset-0 w-full h-full object-cover opacity-20 sm:opacity-35 brightness-100 sm:brightness-125 pointer-events-none z-0"
         src="/videos/12220498_1920_1080_25fps.mp4"
         autoPlay
         muted
@@ -49,9 +49,9 @@ export default function App() {
       />
 
       {/* Global One-Page Connector Layers */}
-      <div className="fixed inset-0 pointer-events-none z-0">
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-70 sm:opacity-100">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.14),transparent_36%),radial-gradient(circle_at_50%_52%,rgba(59,130,246,0.1),transparent_42%),radial-gradient(circle_at_50%_100%,rgba(167,139,250,0.12),transparent_36%)]" />
-        <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-cyan-400/25 to-transparent" />
+        <div className="hidden sm:block absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-cyan-400/25 to-transparent" />
       </div>
 
       {/* Particles Background */}

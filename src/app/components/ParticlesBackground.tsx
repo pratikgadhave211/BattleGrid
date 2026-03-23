@@ -10,8 +10,20 @@ export default function ParticlesBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+    const particleCount = isMobile ? 30 : 80;
+    const flakeCount = isMobile ? 40 : 120;
+    const streakCount = isMobile ? 10 : 28;
 
     const particles: Array<{
       x: number;
@@ -43,10 +55,10 @@ export default function ParticlesBackground() {
     const colors = ['#22d3ee', '#38bdf8', '#60a5fa', '#a78bfa'];
 
     // Create particles
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < particleCount; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * viewportWidth,
+        y: Math.random() * viewportHeight,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 2 + 1,
@@ -55,10 +67,10 @@ export default function ParticlesBackground() {
     }
 
     // Cold flakes that fall vertically with slight wind drift.
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < flakeCount; i++) {
       coldFlakes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * viewportWidth,
+        y: Math.random() * viewportHeight,
         vx: (Math.random() - 0.5) * 0.35,
         vy: Math.random() * 1.2 + 0.55,
         size: Math.random() * 2 + 0.6,
@@ -67,10 +79,10 @@ export default function ParticlesBackground() {
     }
 
     // Long, soft streaks to simulate cold breeze flow.
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < streakCount; i++) {
       breezeStreaks.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * viewportWidth,
+        y: Math.random() * viewportHeight,
         len: Math.random() * 34 + 22,
         speed: Math.random() * 1.1 + 1.1,
         drift: Math.random() * 0.8 + 0.2,
@@ -83,7 +95,7 @@ export default function ParticlesBackground() {
 
     const animate = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, viewportWidth, viewportHeight);
 
       windPhase += 0.008;
       const windForce = Math.sin(windPhase) * 0.45;
@@ -92,9 +104,9 @@ export default function ParticlesBackground() {
         streak.y += streak.speed;
         streak.x += streak.drift + windForce * 0.6;
 
-        if (streak.y - streak.len > canvas.height || streak.x - streak.len > canvas.width + 80) {
+        if (streak.y - streak.len > viewportHeight || streak.x - streak.len > viewportWidth + 80) {
           streak.y = -streak.len;
-          streak.x = Math.random() * canvas.width * 0.7 - 40;
+          streak.x = Math.random() * viewportWidth * 0.7 - 40;
         }
 
         ctx.beginPath();
@@ -109,12 +121,12 @@ export default function ParticlesBackground() {
         flake.x += flake.vx + windForce;
         flake.y += flake.vy;
 
-        if (flake.y > canvas.height + 8) {
+        if (flake.y > viewportHeight + 8) {
           flake.y = -8;
-          flake.x = Math.random() * canvas.width;
+          flake.x = Math.random() * viewportWidth;
         }
-        if (flake.x < -10) flake.x = canvas.width + 10;
-        if (flake.x > canvas.width + 10) flake.x = -10;
+        if (flake.x < -10) flake.x = viewportWidth + 10;
+        if (flake.x > viewportWidth + 10) flake.x = -10;
 
         ctx.beginPath();
         ctx.arc(flake.x, flake.y, flake.size, 0, Math.PI * 2);
@@ -128,8 +140,8 @@ export default function ParticlesBackground() {
         particle.y += particle.vy;
 
         // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        if (particle.x < 0 || particle.x > viewportWidth) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > viewportHeight) particle.vy *= -1;
 
         // Draw particle
         ctx.beginPath();
@@ -138,20 +150,23 @@ export default function ParticlesBackground() {
         ctx.fill();
 
         // Draw connections
-        particles.slice(i + 1).forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+        if (!isMobile) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const otherParticle = particles[j];
+            const dx = particle.x - otherParticle.x;
+            const dy = particle.y - otherParticle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distance / 150) * 0.45})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+            if (distance < 150) {
+              ctx.beginPath();
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(otherParticle.x, otherParticle.y);
+              ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distance / 150) * 0.45})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
           }
-        });
+        }
       });
 
       animationFrameId = requestAnimationFrame(animate);
@@ -160,8 +175,14 @@ export default function ParticlesBackground() {
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const resizedDpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
+      canvas.width = Math.floor(window.innerWidth * resizedDpr);
+      canvas.height = Math.floor(window.innerHeight * resizedDpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(resizedDpr, 0, 0, resizedDpr, 0, 0);
     };
 
     window.addEventListener('resize', handleResize);

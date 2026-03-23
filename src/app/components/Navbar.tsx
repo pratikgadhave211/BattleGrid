@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 
+const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,6 +32,11 @@ export default function Navbar() {
     { name: 'Event', id: 'event' }
   ];
 
+  const openRegister = () => {
+    window.open(REGISTER_URL, '_blank', 'noopener,noreferrer');
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -47,7 +54,11 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection('hero')}
           >
-            <span className="text-2xl sm:text-3xl">🚀</span>
+            <img
+              src="/DSAII-club.png"
+              alt="DSAII Club"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-md object-cover"
+            />
             <span className="text-sm sm:text-xl md:text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-sky-400 to-violet-500 bg-clip-text text-transparent truncate max-w-[220px] sm:max-w-none">
               Technovation 4.0 — Mirai
             </span>
@@ -67,7 +78,7 @@ export default function Navbar() {
               </motion.button>
             ))}
             <motion.button
-              onClick={() => scrollToSection('games')}
+              onClick={openRegister}
               className="px-6 py-2 bg-gradient-to-r from-sky-500 to-violet-600 rounded-lg font-semibold hover:shadow-lg hover:shadow-violet-500/40 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -103,7 +114,7 @@ export default function Navbar() {
               </button>
             ))}
             <button
-              onClick={() => scrollToSection('games')}
+              onClick={openRegister}
               className="px-6 py-2 bg-gradient-to-r from-sky-500 to-violet-600 rounded-lg font-semibold text-center"
             >
               Register Now
