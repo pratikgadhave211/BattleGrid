@@ -126,6 +126,19 @@
 
   body {
     @apply bg-background text-foreground;
+    cursor: url('/glacier-cursor-32.png') 0 0, auto;
+  }
+
+  a,
+  button,
+  [role='button'],
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  select,
+  summary,
+  label[for] {
+    cursor: url('/glacier-cursor-32.png') 0 0, pointer;
   }
 
   /**

@@ -40,12 +40,13 @@ export default function App() {
 
       {/* Global Background Video */}
       <video
-        className="fixed inset-0 w-full h-full object-cover opacity-20 sm:opacity-35 brightness-100 sm:brightness-125 pointer-events-none z-0"
+        className="fixed inset-0 w-full h-full object-cover opacity-12 sm:opacity-35 brightness-95 sm:brightness-125 pointer-events-none z-0"
         src="/videos/12220498_1920_1080_25fps.mp4"
         autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
       />
 
       {/* Global One-Page Connector Layers */}
