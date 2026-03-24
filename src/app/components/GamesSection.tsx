@@ -2,7 +2,7 @@
 import { Users, Trophy, IndianRupee, Flame, Crosshair, Shield, Swords, Gamepad2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
-const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+const REGISTER_URL = 'https://dsaii-battlegrid.vercel.app';
 
 const games = [
   {

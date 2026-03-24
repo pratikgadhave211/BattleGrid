@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { gsap } from 'gsap';
 import { Swords, Trophy } from 'lucide-react';
 
-const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+const REGISTER_URL = 'https://dsaii-battlegrid.vercel.app/';
 
 export default function HeroSection() {
   const titleRef = useRef<HTMLSpanElement>(null);

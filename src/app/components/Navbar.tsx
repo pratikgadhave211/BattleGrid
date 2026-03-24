@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 
-const REGISTER_URL = 'https://dsaii-submission-2.vercel.app/';
+const REGISTER_URL = 'https://dsaii-battlegrid.vercel.app/';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
